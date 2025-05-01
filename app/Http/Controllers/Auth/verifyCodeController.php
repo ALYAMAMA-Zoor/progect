@@ -21,6 +21,6 @@ class verifyCodeController extends Controller
 
           $this->service->UserVerify($request);
 
-          return $this->ResponseTraitVerifiy();
+          return $this->responseTraitOnlyMessage( 'Email verified successfully');
      }
 }

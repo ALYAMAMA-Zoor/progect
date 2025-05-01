@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Podcast;
-class addcommentRequest extends FormRequest
+
+class likeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,17 +13,10 @@ class addcommentRequest extends FormRequest
     {
         return true;
     }
-
-    
     public function rules(): array
     {
         return [
-             'body'=>'required|string', 
-             'podcast_id'=>'required|exists:podcasts,id',
-            'parent_id'=>'nullable|exists:comments,id',
-            'user_id'=>'required'
-
-            
+            'user_id'=>'required',
         ];
     }
 }

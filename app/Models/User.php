@@ -57,6 +57,12 @@ class User extends Authenticatable
     public function media(){
         return $this->morphMany(Media::class,'mediable');
     }
+    public function podcast(){
+        return $this->belongsTo(Podcast::class);
+    }
+    public function comment(){
+        return $this->belongsTo(Comment::class);
+    }
     /*
     public function sendPasswordNotification($token){
         $this->notify(new ResetPasswordNotification($token));

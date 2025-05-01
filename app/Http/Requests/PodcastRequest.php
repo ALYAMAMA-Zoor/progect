@@ -17,7 +17,10 @@ class PodcastRequest extends FormRequest
         return [
             'title'=>'required|string|max:255',
             'description'=>'required|string',
-            'file'=>'required',
+            'file_path'=>'required',
+            'cover_image'=>'nullable',//i have some changes here ,
+            'user_id'=>'required'
+
           
         ];
     }

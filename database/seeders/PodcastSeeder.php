@@ -11,6 +11,6 @@ class PodcastSeeder extends Seeder
    
     public function run(): void
     {
-        Podcast::factory()->count(10)->create();
+       Podcast::factory(10)->create();
     }
 }

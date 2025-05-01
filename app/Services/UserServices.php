@@ -22,6 +22,10 @@ use App\Services\generateService;
 use App\Models\Podcast;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\PodcastRequest;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\PodcastCategory;
 use Exception;
 
 class UserServices{
@@ -116,28 +120,82 @@ public function image($request,$userId){
     $user->media()->create(['url'=>$request->url]);
 }
 public function podcast($request){
-    $filePath = $request->file('file')->store('podcasts');
-        $coverImagePath=null;
-        if($request->hasFile('cover_image')){
-            $coverImagePath=$request->file('cover_image')->store('covers');
-        }
+  
         Podcast::create([
             'title'=>$request->title,
             'description'=>$request->description,
-            'file_path'=>$filePath,
-            'cover_image'=>$coverImagePath,
+            'file_path'=>$request->file_path,
+            'user_id'=>$request->user_id,
+           'cover_image'=>null,
         ]);
+        if($request->has('categories')){
+            $podcast->categories()->sync($request->input('categories'));
+        }
 }
-public function comment($request,Podcast $podcast){
+
+////////////////////////////
+public function random($request){
+  
+    $rand = $request->query('rand',1);
+    return Podcast::inRandomOrder()->take($rand)->get();
+
+}
+////////////////////////////
+public function filter($request){
+    $query=Podcast::query();
+        if($request->has('category')){
+            $query->whereHas('categories',function ($q) use ($request){
+                $q->where('category_id',$request->category);
+            });
+        }
+        if($request->has('sort')){
+            $query->orderBy($request->sort);
+        }else{
+            $query->orderBy('created_at');
+        }
+        return $query->paginate(5);
+
+}
+///////////////////////////
+public function comment( $request,Podcast $podcast){
    
     $comment =new Comment([
         'body'=>$request->body,
-        'user_id'=>auth()->id(),
-        'podcast_id'=>$podcast->id(),
-        'parent_id'=>$request->parent_id,
+        'user_id'=>$request->user_id,
+        'podcast_id'=>$request->podcast_id,
+        'parent_id'=>$request->Parent_id,
     ]);
     $comment->save();
 }
 
+//////////////////////////////////
+public function category( $request){
+   
+  $category=  Category::firstOrCreate([ 
+        'name'=>$request->name,
+   ]);
+   return $category;
+}
+public function cat( $request,$id){
+   
+    $cat= PodcastCategory::create([
+        'podcast_id'=>$id,
+        'category_id'=>$request->category_id,
+    ]);
+  }
+
+//////////////////////////////////
+public function like( $request,$id){
+    $like =Like::firstOrCreate([
+        'podcast_id'=>$id,
+       'user_id'=>$request->user_id,
+    ]);
+    return $like;
+    
+}
+public function deletelike($request,$id){
+
+    Like::where('podcast_id',$id)->where('user_id',$request->user_id)->delete();
+}
 
 }

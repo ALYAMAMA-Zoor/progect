@@ -21,8 +21,8 @@ class ForgotController extends Controller
     $status=$this->service->ResetPasswordAndSend($request);
 
     return $status === Password::PASSWORD_RESET
-    ?$this->resetTrait('password reset successfully')
-    :$this->resetTrait('failed to reset password',401);
+    ?$this->responseTraitOnlyMessage('password reset successfully')
+    :$this->responseTraitOnlyMessage('failed to reset password',401);
 
     }
 

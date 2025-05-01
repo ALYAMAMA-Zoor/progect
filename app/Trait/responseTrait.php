@@ -29,22 +29,7 @@ trait responseTrait
         ]);
       
      }
-     function ResponseTraitVerifiy():JsonResponse
-    {
-        return response()->json( [
-           'Message'=> 'Email verified successfully',
-           
-        ]);
-      
-     }
-     function resetTrait($Message,$statusCode=201):JsonResponse
-     {
-         return response()->json( [
-            'Message'=>$Message,
-            
-         ],$statusCode);
-       
-      }
+    
       function responseTraitOnlyMessage($Message,$statusCode=201):JsonResponse
       {
           return response()->json( [
@@ -53,4 +38,5 @@ trait responseTrait
           ],$statusCode);
         
        }
+    
 }

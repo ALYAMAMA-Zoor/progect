@@ -10,15 +10,17 @@ use App\Models\Podcast;
 
 class CommentFactory extends Factory
 {
-    protected $model = Comment::class;
+    public $model = Comment::class;
   
     public function definition(): array
     {
         return [
-            'body'=>$this->faker->sentence,
-            'user_id'=>null,
-            'podcast_id'=>null,
+            'body'=>$this->faker->text,
+            'user_id'=>User::factory(),
+            'podcast_id'=>Podcast::factory(),
             'parent_id'=>null,
         ];
-    }
+    
+}
+
 }

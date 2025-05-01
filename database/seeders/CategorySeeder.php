@@ -4,13 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Comment;
+use App\Models\Category;
 
-class CommentSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
-   
+    
     public function run(): void
     {
-       Comment::factory(50)->create();
+        Category::factory(10)->create();
     }
 }

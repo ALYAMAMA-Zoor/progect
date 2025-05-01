@@ -20,8 +20,8 @@ class ResetPasswordController extends Controller
      $status= $this->service->ResetPassword($request);
 
    return $status===Password::RESET_LINK_SENT
-    ?$this->resetTrait('failed to send link ,please try again',401)
-    :$this->resetTrait('go and check your email');
+    ?$this->responseTraitOnlyMessage('failed to send link ,please try again',401)
+    :$this->responseTraitOnlyMessage('go and check your email');
    
     }
 }
