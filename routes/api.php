@@ -16,7 +16,8 @@ use App\Http\Controllers\Podcast\getComment;
 use App\Http\Controllers\Podcast\likeController;
 use App\Http\Controllers\Podcast\addCommentPodcast;
 use App\Http\Controllers\Podcast\categoryController;
-
+use App\Http\Controllers\Podcast\channelController;
+use App\Http\Controllers\Podcast\searchController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -50,6 +51,10 @@ Route::post('deletelike/{userId}',[likeController::class,'deletelike']);
 Route::get('category',[categoryController::class,'category']);
 Route::get('podcast/{podcast_id}/category',[categoryController::class,'category']);
 Route::post('category/{id}',[categoryController::class,'cat']);
+
+Route::post('chanel',[channelController::class,'createchannel']);
+Route::post('chanelremove',[channelController::class,'removeChannel']);
+Route::post('search',[searchController::class,'search']);
 
 
 

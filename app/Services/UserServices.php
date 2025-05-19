@@ -125,6 +125,8 @@ public function podcast($request){
             'title'=>$request->title,
             'description'=>$request->description,
             'file_path'=>$request->file_path,
+            'publish_at'=>$request->publish_at,
+            'channel_id'=>$request->channel_id,
             'user_id'=>$request->user_id,
            'cover_image'=>null,
         ]);
@@ -195,7 +197,7 @@ public function like( $request,$id){
 }
 public function deletelike($request,$id){
 
-    Like::where('podcast_id',$id)->where('user_id',$request->user_id)->delete();
+                                    
 }
 
 }

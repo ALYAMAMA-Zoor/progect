@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+          //  $table->foreignId('chanel_id')->nullable()->constrained()->onDelete('cascade');
+            $table->timestamp('publish_at')->nullable();
             $table->string('file_path');
             $table->string('cover_image')->nullable();
           $table->foreignId('user_id')->constrained()->onDelete('cascade');
