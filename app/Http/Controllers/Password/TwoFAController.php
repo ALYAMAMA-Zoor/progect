@@ -21,6 +21,10 @@ class TwoFAController extends Controller
 
         $secret= $this->generateService->generateService();
 
+        $this->cacheService->putInCasheThree(Auth::id());
+
+        $this->cacheService->putInCasheFour(Auth::id());
+
         return response()->json(['secret'=>$secret]);
 
     }

@@ -7,19 +7,23 @@ use App\Http\Requests\PodcastRequest;
 use App\Services\UserServices;
 use App\Trait\responseTrait;
 use Illuminate\Http\Request;
-
+use App\Services\cacheService;
 
 class PodcastController extends Controller
 {
     use responseTrait;
     public function __construct(
         protected UserServices $service,
+        
+         protected cacheService $cacheService,
 
      ){}
     public function store(PodcastRequest $request){
     
-     $this->service->podcast($request);
-       
+     $podcast= $this->service->podcast($request);
+
+     $this->cacheService->putInCasheTow($podcast, now()->addMinutes(10));
+
     return  $this->responseTraitOnlyMessage('your bodcast added successfully');
     
     }

@@ -19,7 +19,8 @@ class PodcastRequest extends FormRequest
             'description'=>'required|string',
             'file_path'=>'required',
             'cover_image'=>'nullable',//i have some changes here ,
-            'user_id'=>'required'
+            'user_id'=>'required',
+            'publish_at'=>'required',
 
           
         ];
