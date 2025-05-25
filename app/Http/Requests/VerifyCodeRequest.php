@@ -19,7 +19,7 @@ class VerifyCodeRequest extends FormRequest
         return [
              'email'=>'required|email',
             'verification_code'=>'required|string',
-            'password'=>''
+           // 'password'=>'required'
         ];
     }
 }
